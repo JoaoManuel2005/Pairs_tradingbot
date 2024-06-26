@@ -5,16 +5,16 @@ from src.data_processing import preprocess_data, calculate_spread, calculate_zsc
 from src.backtesting import run_backtest
 from src.paper_trading import AlpacaPaperTrader
 
-# Load config
+# Load config to access api info to then set it up
 with open('config/config.yaml', 'r') as file:
     config = yaml.safe_load(file)
 
-# Alpaca API setup
+# alpaca trading API setup
 api_key = config['alpaca']['api_key']
 api_secret = config['alpaca']['api_secret']
 base_url = config['alpaca']['base_url']
 
-# Trading parameters
+# trading parameters
 tickers = config['trading']['tickers']
 lookback_period = config['trading']['lookback_period']
 entry_zscore = config['trading']['entry_zscore']
@@ -22,7 +22,7 @@ exit_zscore = config['trading']['exit_zscore']
 initial_cash = config['trading']['initial_cash']
 
 
-# Fetch historical data for all tickers
+# fetch historical data for all tickers
 data = {}
 for ticker in tickers:
     print(f"Fetching historical data for {ticker}")
@@ -32,7 +32,7 @@ for ticker in tickers:
     else:
         print(f"Failed to fetch data for {ticker}")
 
-# Test for cointegration between each pair
+# test for cointegration between each pair
 cointegrated_pairs = []
 for i, ticker1 in enumerate(tickers):
     for ticker2 in tickers[i+1:]:
@@ -46,18 +46,18 @@ for i, ticker1 in enumerate(tickers):
             else:
                 print('Pair is not cointegrated')
         
-# Backtest cointegrated pairs
+# backtest each cointegrated pairs
 for ticker1, ticker2 in cointegrated_pairs:
     print(f"Backtesting strategy for pair: {ticker1} and {ticker2}")
     stock1 = data[ticker1]
     stock2 = data[ticker2]
 
-    # Preprocess data and calculate spread and z-score
+    # preprocess data and calculate spread and z-score of each cointegrated pair
     data = preprocess_data(stock1, stock2)
     spread = calculate_spread(stock1, stock2)['spread']
     zscore = calculate_zscore(spread, lookback_period)
 
-    # Backtest the strategy
+    # backtest the strategy
     run_backtest(stock1, stock2, lookback_period, entry_zscore, exit_zscore)
 
         # # Example paper trading usage
