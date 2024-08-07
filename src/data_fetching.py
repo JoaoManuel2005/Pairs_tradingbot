@@ -1,6 +1,8 @@
 import yfinance as yf
+import numpy as np
 import pandas as pd
 import traceback
+
 
 
 def fetch_and_localize2(ticker, start, end):
@@ -46,3 +48,14 @@ def fetch_realtime_data(ticker):
         return data
     except Exception as e:
         print(f"Error localizing timezone: {e}")        
+
+
+def fetch_data_for_features(tickers):
+    # Fetch data for each ticker
+    data = {}
+    for ticker in tickers:
+        stock = yf.Ticker(ticker)
+        hist = stock.history(period='5y')
+        data[ticker] = hist
+    
+    return data

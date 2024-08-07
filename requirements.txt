@@ -6,3 +6,5 @@ matplotlib
 backtrader
 alpaca-trade-api
 pytest
+kneed
+sklearn
