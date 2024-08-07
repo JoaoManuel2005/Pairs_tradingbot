@@ -15,7 +15,7 @@ Pairs Trading Bot is a Python-based algorithmic trading bot that implements a pa
    - **Entry Signal**: When the z-score exceeds a certain threshold, it indicates that the spread is wide, and a mean reversion trade is initiated. The bot goes long on the underperforming stock and short on the outperforming stock.
    - **Exit Signal**: When the z-score reverts to zero or crosses another threshold, it indicates that the spread has reverted to the mean, and the trade is closed.
 7. **Backtesting**: The bot backtests the trading strategy using historical data to evaluate its performance.
-8. **Paper Trading**: The bot can execute paper trades using the Alpaca API, which allows for simulated trading without real money.
+8. **Real or Paper Trading**: The bot can execute real or paper trades using the Alpaca API.
 
 ## Features
 
@@ -24,4 +24,4 @@ Pairs Trading Bot is a Python-based algorithmic trading bot that implements a pa
 - Test for cointegration between pairs of stocks
 - Calculate spread and z-score for pairs trading
 - Backtest trading strategy
-- Paper trading using Alpaca API
+- Trading using Alpaca API
